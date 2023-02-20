@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Cotizador Online</title>
+  </head>
+  <body>
+    <h1>CURSO JAVASCRIPT - TERCERA PRE ENTREGA - LEONARDO MANZUR</h1>
+
+    <h2>Cotizador de páginas web Online</h2>
+
+    <div class="fila1">
+      <form id="formularioPresupuesto">
+        <fieldset>
+          <label for="nombre">Nombre y Apellido:</label>
+          <input
+            type="text"
+            name="nombre"
+            id="nombre"
+            class="inputText"
+            autocomplete="off"
+            placeholder="Nombre y apellido"
+          />
+          <label for="dni" class="tituloForm">Dni:</label>
+          <input type="text" name="dni" id="dni" class="inputText" autocomplete="off" placeholder="Dni" />
+
+          <label for="tipoPagina">Tipo de página</label>
+          <div class="tipoRadio">
+            <input type="radio" name="tipoPagina" id="1" checked />
+            Landing (1 sola pagina)
+          </div>
+          <div class="tipoRadio">
+            <input type="radio" name="tipoPagina" id="2" />
+            Emprendedor simple (hasta 4 páginas)
+          </div>
+          <div class="tipoRadio">
+            <input type="radio" name="tipoPagina" id="3" />
+            Ecommerce
+          </div>
+
+          <label for="disponeLogo">¿Dispone de un logo?</label>
+          <div class="tipoRadio">
+            <input type="radio" name="disponeLogo" id="1" />
+            Sí, tengo logo
+          </div>
+          <div class="tipoRadio">
+            <input type="radio" name="disponeLogo" id="2" checked />
+            No, necesito que me diseñen el logo
+          </div>
+
+          <label for="disponeDiseño">¿Dispone de un diseño para la página?</label>
+          <div class="tipoRadio">
+            <input type="radio" name="disponeDiseño" id="1" />
+            Sí, tengo un diseño
+          </div>
+          <div class="tipoRadio">
+            <input type="radio" name="disponeDiseño" id="2" checked />
+            No, necesito que me diseñen la página
+          </div>
+
+          <label for="disponeHosting">¿Dispone de hosting contratado?</label>
+          <div class="tipoRadio">
+            <input type="radio" name="disponeHosting" id="1" />
+            Sí, tengo un hosting
+          </div>
+          <div class="tipoRadio">
+            <input type="radio" name="disponeHosting" id="2" checked />
+            No, necesito que me contraten un hosting
+          </div>
+
+          <label for="disponeDominio">¿Dispone de un dominio para la página?</label>
+          <div class="tipoRadio">
+            <input type="radio" name="disponeDominio" id="1" />
+            Sí, tengo un dominio
+          </div>
+          <div class="tipoRadio">
+            <input type="radio" name="disponeDominio" id="2" checked />
+            No, necesito un dominio
+          </div>
+
+          <label for="formaPago">Indique la forma de pago</label>
+          <div class="tipoRadio">
+            <input type="radio" name="formaPago" id="1" />
+            Efectivo (10% de descuento)
+          </div>
+          <div class="tipoRadio">
+            <input type="radio" name="formaPago" id="2" checked />
+            Tarjeta (15% de recargo - hasta 6 cuotas)
+          </div>
+          <button type="submit">Presupuestar</button>
+        </fieldset>
+      </form>
+
+      <div class="muestraPresupuesto" id="muestraPresupuesto"></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
