@@ -51,6 +51,8 @@ formularioPresupuesto.addEventListener("submit", (event) => {
     escribirDentroDePresupuesto("TITULAR DEL PRESUPUESTO: " + inputNombre.value);
     escribirDentroDePresupuesto("DNI: " + inputDni.value);
     let pres = redactarPresupuesto();
+
+    console.log(muestraPresupuesto.innerHTML);
   }
 });
 
@@ -162,22 +164,6 @@ function redactarPresupuesto() {
   let formaDePago = "0";
   let importePorFormaDePago = 0;
 
-  // LO COMENTADO ARMA EL PRESUPUESTO CON PROMPT Y ALERT
-  //Selecciona tipo de pagina
-
-  /** 
-  do {
-    tipoDePagina = prompt(
-      "¿Que tipo de página desea? \n \n 1 - Landing (1 sola página) \n 2 - Emprendedor Simple (hasta 4 páginas)\n 3 - Ecommerce \n \n - INGRESE EL NUMERO DE LA OPCION DESEADA: "
-    );
-
-    if (tipoDePagina != "1" && tipoDePagina != "2" && tipoDePagina != "3") {
-      alert("opcion invalida intente de nuevo");
-    }
-  } while (tipoDePagina != "1" && tipoDePagina != "2" && tipoDePagina != "3");
-  */
-
-  //Costo segun tipo de página
   tipoDePagina = inputTipoPagina.value;
 
   console.log(inputTipoPagina);
@@ -204,19 +190,6 @@ function redactarPresupuesto() {
       break;
   }
 
-  //Consulta si tiene logo y adiciona costo en caso de no tenerlo
-  /*
-  do {
-    disponeLogo = prompt(
-      "¿Dispone de un logo? de no tener, se lo incluiremos en la cotización \n \n 1 - Si, tengo logo \n 2 - No, no tengo logo  \n \n - INGRESE EL NUMERO DE LA OPCION DESEADA: "
-    );
-
-      if (disponeLogo != "1" && disponeLogo != "2") {
-    alert("opcion invalida intente de nuevo");
-  }
-
-  } while (disponeLogo != "1" && disponeLogo != "2");*/
-
   for (i = 0; i < inputDisponeLogo.length; i++) {
     if (inputDisponeLogo[i].checked) {
       disponeLogo = inputDisponeLogo[i].id;
@@ -227,18 +200,6 @@ function redactarPresupuesto() {
     costoLogo = 10000;
     total += costoLogo;
   }
-
-  // Consulta diseño de la pagina
-  /*do {
-    disponeDiseño = prompt(
-      "¿Dispone de un diseño para la página? de no tener, se lo incluiremos en la cotización \n \n 1 - Si, tengo un diseño \n 2 - No, no tengo un diseño  \n \n - INGRESE EL NUMERO DE LA OPCION DESEADA: "
-    );
-
-    
-    if (disponeDiseño != "1" && disponeDiseño != "2") {
-      alert("opcion invalida intente de nuevo");
-    }
-  } while (disponeDiseño != "1" && disponeDiseño != "2");*/
 
   console.log(inputDisponeDiseño);
   for (i = 0; i < inputDisponeDiseño.length; i++) {
@@ -252,20 +213,6 @@ function redactarPresupuesto() {
     total += costoDiseño;
   }
 
-  //Consulta por hosting
-
-  /*do {
-    disponeHosting = prompt(
-      "¿Dispone de un hosting para la página? de no tener, se lo incluiremos en la cotización por el periodo de un año\n \n 1 - Si, tengo un Hosting contratado \n 2 - No, no tengo un hosting contratado  \n \n - INGRESE EL NUMERO DE LA OPCION DESEADA: "
-    );
-
-   
-
-    if (disponeHosting != "1" && disponeHosting != "2") {
-      alert("opcion invalida intente de nuevo");
-    }
-  } while (disponeHosting != "1" && disponeHosting != "2");*/
-
   for (i = 0; i < inputDisponeHosting.length; i++) {
     if (inputDisponeHosting[i].checked) {
       disponeHosting = inputDisponeHosting[i].id;
@@ -277,19 +224,6 @@ function redactarPresupuesto() {
     total += costoHosting;
   }
 
-  //Consulta por dominio
-
-  /*do {
-    disponeDominio = prompt(
-      "¿Dispone de un dominio para la página? de no tener, se lo incluiremos en la cotización \n \n 1 - Si, tengo un dominio \n 2 - No, no tengo un dominio  \n \n - INGRESE EL NUMERO DE LA OPCION DESEADA: "
-    );
-
-
-    if (disponeDominio != "1" && disponeDominio != "2") {
-      alert("opcion invalida intente de nuevo");
-    }
-  } while (disponeDominio != "1" && disponeDominio != "2");*/
-
   for (i = 0; i < inputDisponeDominio.length; i++) {
     if (inputDisponeDominio[i].checked) {
       disponeDominio = inputDisponeDominio[i].id;
@@ -299,19 +233,6 @@ function redactarPresupuesto() {
     costoDominio = 950;
     total += costoDominio;
   }
-
-  //Forma de pago
-
-  /*do {
-    formaDePago = prompt(
-      "Indique la forma de pago \n \n 1 - Efectivo, (10% de descuento)  \n 2 - Tarjeta,(15% de recargo)  \n \n - INGRESE EL NUMERO DE LA OPCION DESEADA: "
-    );
-
-   
-    if (formaDePago != "1" && formaDePago != "2") {
-      alert("opcion invalida intente de nuevo");
-    }
-  } while (formaDePago != "1" && formaDePago != "2");*/
 
   for (i = 0; i < inputDisponeFormaPago.length; i++) {
     if (inputDisponeFormaPago[i].checked) {
@@ -334,39 +255,30 @@ function redactarPresupuesto() {
   }
 
   // Muestra lo presupestado
-  textoPresupuesto =
-    "PRESUPUESTO POR DESARROLLO DE PÁGINA WEB:  \n \n - Valor por tipo de página: $ " + valorPorTipoDePag;
-  escribirDentroDePresupuesto("- Costo por tipo de pagina elegida: $ " + valorPorTipoDePag);
+  textoPresupuesto = escribirDentroDePresupuesto("- Costo por tipo de pagina elegida: $ " + valorPorTipoDePag);
 
   if (disponeLogo == "2") {
-    textoPresupuesto += "\n - Logo $ " + costoLogo;
     escribirDentroDePresupuesto("- Diseño de logo: $ " + costoLogo);
   }
 
   if (disponeDiseño == "2") {
-    textoPresupuesto += "\n - Diseño de la página $ " + costoDiseño;
     escribirDentroDePresupuesto("- Diseño de la página: $ " + costoDiseño);
   }
 
   if (disponeHosting == "2") {
-    textoPresupuesto += "\n - Hosting (Anual) $ " + costoHosting;
     escribirDentroDePresupuesto("- Contratación del hosting: $ " + costoHosting);
   }
 
   if (disponeDominio == "2") {
-    textoPresupuesto += "\n - Dominio (Anual) $ " + costoDominio;
     escribirDentroDePresupuesto("- Compra de dominio (este valor se debe abonar anualmente): $ " + costoDominio);
   }
 
   if (formaDePago == "1") {
-    textoPresupuesto += "\n - Descuento por pago al contado(10%) - $ " + importePorFormaDePago;
     escribirDentroDePresupuesto("- Descuento por pago al contado(10%) - $ " + importePorFormaDePago);
   } else {
-    textoPresupuesto += "\n - Recargo por pago con tarjeta (15%)  $ " + importePorFormaDePago;
     escribirDentroDePresupuesto("- Recargo por pago con tarjeta (15%)  $ " + importePorFormaDePago);
   }
 
-  textoPresupuesto += "\n \n TOTAL PRESUPUESTO: $ " + total;
   escribirTotalDelPresupuesto("TOTAL PRESUPUESTO $ " + total);
 
   //alert(textoPresupuesto);
