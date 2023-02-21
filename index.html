@@ -10,7 +10,7 @@
   <body>
     <h1>CURSO JAVASCRIPT - TERCERA PRE ENTREGA - LEONARDO MANZUR</h1>
 
-    <h2>Cotizador de páginas web Online</h2>
+    <h2 class="h2sub">Cotizador de páginas web Online</h2>
 
     <div class="fila1">
       <form id="formularioPresupuesto">
@@ -95,6 +95,26 @@
       </form>
 
       <div class="muestraPresupuesto" id="muestraPresupuesto"></div>
+    </div>
+
+    <div class="fila2">
+      <div class="divTpresupuestos">
+        <table id="listaDePresupuestos">
+          <thead>
+            <tr>
+              <th>Nro PRESUPUESTO</th>
+              <th>DNI</th>
+              <th>NOMBRE Y APELLIDO</th>
+              <th>MOSTRAR</th>
+              <th>ELIMINAR</th>
+            </tr>
+          </thead>
+
+          <tbody id="bodyTabla"></tbody>
+        </table>
+      </div>
+
+      <div class="divTclientes"></div>
     </div>
 
     <script src="script.js"></script>

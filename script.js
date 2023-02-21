@@ -16,6 +16,7 @@ const inputDisponeDominio = document.getElementsByName("disponeDominio");
 const inputDisponeFormaPago = document.getElementsByName("formaPago");
 const parrafoPresupuesto = document.getElementById("parrafoPresupuesto");
 const muestraPresupuesto = document.getElementById("muestraPresupuesto");
+const bodyTabla = document.getElementById("bodyTabla");
 
 class cliente {
   constructor(dni, apellidoNombre) {
@@ -42,7 +43,7 @@ formularioPresupuesto.addEventListener("submit", (event) => {
     alert("debe completar todos los campos!");
   } else {
     event.preventDefault();
-    muestraPresupuesto.innerHTML = "";
+    muestraPresupuesto.innerHTML = ""; //reiniciamos este div cada vez que tocamos el boton
     const nuevoH2 = document.createElement("h2"); //creamos un elemento h2 desde js
     nuevoH2.innerHTML = "PRESUPUESTO:"; //Asignamos el tecto
     nuevoH2.className = "h2Presupuesto";
@@ -50,7 +51,9 @@ formularioPresupuesto.addEventListener("submit", (event) => {
     //agregamos datos del titular del presupuesto
     escribirDentroDePresupuesto("TITULAR DEL PRESUPUESTO: " + inputNombre.value);
     escribirDentroDePresupuesto("DNI: " + inputDni.value);
-    let pres = redactarPresupuesto();
+    //let pres = redactarPresupuesto();
+    generarYalmacenarPresupuesto();
+    renderizarPresupuestos(presupuestos);
 
     console.log(muestraPresupuesto.innerHTML);
   }
@@ -118,8 +121,9 @@ function menuInicial() {
 
 function generarYalmacenarPresupuesto() {
   //Se redacta presupuesto y se obtiene el mismo
+  verificarExistenciaDeCliente(inputDni.value);
   textoPresupuesto = redactarPresupuesto();
-  let clientePresupueto = clientes.find((c) => c.dni === dni); //obtengo el cliente con ese dni
+  let clientePresupueto = clientes.find((c) => c.dni === inputDni.value); //obtengo el cliente con ese dni
 
   //Creamos un objeto presupuesto y guardamos en el arreglo
 
@@ -127,13 +131,10 @@ function generarYalmacenarPresupuesto() {
 
   presupuestos.push(presupuestoNuevo);
   console.log("Se cargo un nuevo presupuesto en la base de datos");
-  alert("El presupuesto se ha cargado correctamente, sera dirigido al menu principal");
-  menuInicial();
 }
 
 function cargarCliente() {
-  let nombreYapellido = prompt("Ingrese su nombre y apellido");
-  let clienteNuevo = new cliente(dni, nombreYapellido);
+  let clienteNuevo = new cliente(inputDni.value, inputNombre.value);
   clientes.push(clienteNuevo);
   alert("Ha sido agregado como cliente");
 }
@@ -255,6 +256,8 @@ function redactarPresupuesto() {
   }
 
   // Muestra lo presupestado
+  escribirDentroDePresupuesto("N° DE PRESUPUESTO: " + nroPresupuesto);
+
   textoPresupuesto = escribirDentroDePresupuesto("- Costo por tipo de pagina elegida: $ " + valorPorTipoDePag);
 
   if (disponeLogo == "2") {
@@ -286,7 +289,7 @@ function redactarPresupuesto() {
   //incrementa en 1 el nro de presupuesto
   nroPresupuesto++;
 
-  return textoPresupuesto;
+  return muestraPresupuesto.innerHTML;
 }
 
 function escribirDentroDePresupuesto(texto) {
@@ -301,4 +304,76 @@ function escribirTotalDelPresupuesto(texto) {
   nuevoParrafo.innerHTML = texto; //Asignamos el tecto
   nuevoParrafo.className = "totalPresupuesto";
   muestraPresupuesto.append(nuevoParrafo); //agrego el parrafo nuevo dentro del div muestra presupuesto
+}
+
+function renderizarPresupuestos(presupuestos) {
+  bodyTabla.innerHTML = ""; //limpiamos la tabla antes de cada renderización
+
+  presupuestos.forEach((presupuesto) => {
+    //recorremos array de presupuestos
+    //creamos fila
+    const tr = document.createElement("tr");
+
+    //creamos cada uno de las columnas para esa fila y le pasamos los valores
+    const tdNroPresupuesto = document.createElement("td");
+    //pasamos valor al td
+    tdNroPresupuesto.innerHTML = presupuesto.nroPresupuesto;
+
+    const tdDni = document.createElement("td");
+    tdDni.innerHTML = presupuesto.cliente.dni;
+
+    const tdNombreApellido = document.createElement("td");
+    tdNombreApellido.innerHTML = presupuesto.cliente.apellidoNombre;
+
+    //agregos los td creados al tr creado
+    tr.append(tdNroPresupuesto);
+    tr.append(tdDni);
+    tr.append(tdNombreApellido);
+
+    //Creamos botones de acciones y agregamos al tr
+    const tdMostrar = document.createElement("td");
+    const botonMostrarPresupuesto = document.createElement("button");
+    botonMostrarPresupuesto.innerText = "Mostrar";
+
+    //Agregamos evento al boton creado
+    botonMostrarPresupuesto.addEventListener("click", () => {
+      //Obtengo indice de donde esta este presupuesto
+      const inidiceElementoAmostrar = presupuestos.findIndex((presupuestoAmostrar) => {
+        return presupuestoAmostrar.nroPresupuesto === presupuesto.nroPresupuesto;
+      });
+
+      //mostramos el resultado
+
+      muestraPresupuesto.innerHTML = presupuestos[inidiceElementoAmostrar].presupuesto;
+    });
+
+    //Agregamos el boton a la fila
+    tdMostrar.append(botonMostrarPresupuesto);
+    tr.append(tdMostrar);
+
+    //HACEMOS LOS MISMO PARA EL BONTON ELIMINAR
+
+    const tdEliminar = document.createElement("td");
+    const botonEliminar = document.createElement("button");
+    botonEliminar.innerText = "Eliminar";
+
+    //Agregamos evento al boton creado
+    botonEliminar.addEventListener("click", () => {
+      //Obtengo indice de donde esta este presupuesto
+      const inidiceElementoAeliminar = presupuestos.findIndex((presupuestoAeliminar) => {
+        return presupuestoAeliminar.nroPresupuesto === presupuesto.nroPresupuesto;
+      });
+
+      //borramos el presuesto del arreglo
+      presupuestos.splice(inidiceElementoAeliminar, 1);
+      renderizarPresupuestos(presupuestos);
+    });
+
+    tdEliminar.append(botonEliminar);
+    tr.append(tdEliminar);
+
+    //agregamos tr al tbody
+
+    bodyTabla.append(tr);
+  });
 }
