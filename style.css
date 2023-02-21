@@ -66,4 +66,15 @@ table tr th {
   border: 1px solid black;
   border-collapse: collapse;
   padding: 0.25rem;
+  text-align: center;
+}
+
+.fila2 {
+  display: flex;
+  justify-content: space-around;
+}
+
+.fila2 h2 {
+  color: #f44336;
+  text-align: center;
 }

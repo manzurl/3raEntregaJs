@@ -17,6 +17,7 @@ const inputDisponeFormaPago = document.getElementsByName("formaPago");
 const parrafoPresupuesto = document.getElementById("parrafoPresupuesto");
 const muestraPresupuesto = document.getElementById("muestraPresupuesto");
 const bodyTabla = document.getElementById("bodyTabla");
+const inputBuscarPresupuesto = document.getElementById("inputBuscarPresupuesto");
 
 class cliente {
   constructor(dni, apellidoNombre) {
@@ -54,9 +55,23 @@ formularioPresupuesto.addEventListener("submit", (event) => {
     //let pres = redactarPresupuesto();
     generarYalmacenarPresupuesto();
     renderizarPresupuestos(presupuestos);
+    renderizarClientes(clientes);
 
     console.log(muestraPresupuesto.innerHTML);
   }
+});
+
+inputBuscarPresupuesto.addEventListener("input", () => {
+  const presupuestoAbuscar = inputBuscarPresupuesto.value;
+
+  // Filtro los productos
+  const presupuestosFiltrados = presupuestos.filter((presupuesto) => {
+    //este metodo filter devuelve un nuevo arreglo con los productos filtrados
+    return presupuesto.cliente.dni.toLowerCase().includes(presupuestoAbuscar.toLowerCase());
+  });
+
+  renderizarPresupuestos(presupuestosFiltrados);
+  renderizarClientes(clientes);
 });
 
 function menuInicial() {
@@ -134,7 +149,7 @@ function generarYalmacenarPresupuesto() {
 }
 
 function cargarCliente() {
-  let clienteNuevo = new cliente(inputDni.value, inputNombre.value);
+  let clienteNuevo = new cliente(inputDni.value.toUpperCase(), inputNombre.value.toUpperCase());
   clientes.push(clienteNuevo);
   alert("Ha sido agregado como cliente");
 }
@@ -375,5 +390,50 @@ function renderizarPresupuestos(presupuestos) {
     //agregamos tr al tbody
 
     bodyTabla.append(tr);
+  });
+}
+
+function renderizarClientes(clientes) {
+  bodyTablaClientes.innerHTML = ""; //limpiamos la tabla antes de cada renderización
+
+  clientes.forEach((cliente) => {
+    //recorremos array de presupuestos
+    //creamos fila
+    const tr = document.createElement("tr");
+
+    const tdDni = document.createElement("td");
+    tdDni.innerHTML = cliente.dni;
+
+    const tdNombreApellido = document.createElement("td");
+    tdNombreApellido.innerHTML = cliente.apellidoNombre;
+
+    //agregos los td creados al tr creado
+    tr.append(tdDni);
+    tr.append(tdNombreApellido);
+
+    //BONTON ELIMINAR
+
+    const tdEliminar = document.createElement("td");
+    const botonEliminar = document.createElement("button");
+    botonEliminar.innerText = "Eliminar";
+
+    //Agregamos evento al boton creado
+    botonEliminar.addEventListener("click", () => {
+      //Obtengo indice de donde esta este presupuesto
+      const inidiceElementoAeliminar = clientes.findIndex((clienteAeliminar) => {
+        return clienteAeliminar.dni === cliente.dni;
+      });
+
+      //borramos el cliente del arreglo
+      clientes.splice(inidiceElementoAeliminar, 1);
+      renderizarClientes(clientes);
+    });
+
+    tdEliminar.append(botonEliminar);
+    tr.append(tdEliminar);
+
+    //agregamos tr al tbody
+
+    bodyTablaClientes.append(tr);
   });
 }

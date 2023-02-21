@@ -99,6 +99,9 @@
 
     <div class="fila2">
       <div class="divTpresupuestos">
+        <h2>LISTADO DE PRESUPUESTOS</h2>
+        <label for="inputBuscarPresupuesto">BUSCAR PRESUPUESTO POR DNI: </label>
+        <input type="text" id="inputBuscarPresupuesto" />
         <table id="listaDePresupuestos">
           <thead>
             <tr>
@@ -114,7 +117,21 @@
         </table>
       </div>
 
-      <div class="divTclientes"></div>
+      <div class="divTclientes">
+      <h2>LISTADO DE CLIENTES</h2>
+      <label for="inputBuscarCliente">BUSCAR CLIENTE POR DNI: </label>
+      <input type="text" id="inputBuscarCliente" />
+      <table id="listaDeClientes">
+        <thead>
+          <tr>
+            <th>DNI</th>
+            <th>NOMBRE Y APELLIDO</th>
+            <th>ELIMINAR</th>
+          </tr>
+        </thead>
+
+        <tbody id="bodyTablaClientes"></tbody>
+      </table>
     </div>
 
     <script src="script.js"></script>
