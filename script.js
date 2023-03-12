@@ -339,10 +339,24 @@ function renderizarPresupuestos(presupuestos) {
         return presupuestoAeliminar.nroPresupuesto === presupuesto.nroPresupuesto;
       });
 
-      //borramos el presuesto del arreglo
-      presupuestos.splice(inidiceElementoAeliminar, 1);
-      actualizarLSpresupuestos(presupuestos);
-      renderizarPresupuestos(presupuestos);
+      Swal.fire({
+        title: "¿Esta seguro que desea eliminar el presupuesto?",
+        text: "",
+        icon: "question",
+        confirmButtonText: "si",
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        cancelButtonColor: "red",
+      }).then((resultado) => {
+        if (resultado.isConfirmed) {
+          //borramos el presuesto del arreglo
+          presupuestos.splice(inidiceElementoAeliminar, 1);
+          actualizarLSpresupuestos(presupuestos);
+          renderizarPresupuestos(presupuestos);
+        } else {
+          console.log("se decidio no borrar nada");
+        }
+      });
     });
 
     tdEliminar.append(botonEliminar);
@@ -385,10 +399,24 @@ function renderizarClientes(clientes) {
         return clienteAeliminar.dni === cliente.dni;
       });
 
-      //borramos el cliente del arreglo
-      clientes.splice(inidiceElementoAeliminar, 1);
-      actualizarLSclientes(clientes);
-      renderizarClientes(clientes);
+      Swal.fire({
+        title: "¿Esta seguro que desea eliminar el cliente?",
+        text: "",
+        icon: "question",
+        confirmButtonText: "si",
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        cancelButtonColor: "red",
+      }).then((resultado) => {
+        if (resultado.isConfirmed) {
+          //borramos el cliente del arreglo
+          clientes.splice(inidiceElementoAeliminar, 1);
+          actualizarLSclientes(clientes);
+          renderizarClientes(clientes);
+        } else {
+          console.log("se decidio no borrar nada");
+        }
+      });
     });
 
     tdEliminar.append(botonEliminar);
