@@ -72,9 +72,15 @@ table tr th {
 .fila2 {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 2rem;
 }
 
 .fila2 h2 {
   color: #f44336;
   text-align: center;
+}
+
+.divTclientes {
+  padding-bottom: 2rem;
 }

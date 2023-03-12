@@ -50,7 +50,12 @@ formularioPresupuesto.addEventListener("submit", (event) => {
   //Validamos los campos
   if (inputNombre.value == "" || inputDni.value == "") {
     console.log("entre");
-    alert("debe completar todos los campos!");
+    Swal.fire({
+      title: "Error!",
+      text: "Debe completar todos los campos",
+      icon: "error",
+      confirmButtonText: "Ok",
+    });
   } else {
     event.preventDefault();
     muestraPresupuesto.innerHTML = ""; //reiniciamos este div cada vez que tocamos el boton
@@ -102,7 +107,7 @@ function cargarCliente() {
   let clienteNuevo = new cliente(inputDni.value.toUpperCase(), inputNombre.value.toUpperCase());
   clientes.push(clienteNuevo);
   actualizarLSclientes(clientes);
-  alert("Ha sido agregado como cliente");
+  //alert("Ha sido agregado como cliente");
 
   //usando libreria de sweet alert
 
@@ -120,7 +125,12 @@ function verificarExistenciaDeCliente(dni) {
     console.log("El cliente no existe en la base de datos");
     cargarCliente();
   } else {
-    alert("El cliente ya existe en la base de datos, se procede a realizar presupuesto para dicho cliente");
+    Swal.fire({
+      title: "Atención el cliente ya existe en la base de datos!",
+      text: "Se procede a realizar presupuesto",
+      icon: "info",
+      confirmButtonText: "Ok",
+    });
   }
 }
 
