@@ -67,6 +67,7 @@ table tr th {
   border-collapse: collapse;
   padding: 0.25rem;
   text-align: center;
+  font-size: 0.8rem;
 }
 
 .fila2 {
@@ -74,7 +75,7 @@ table tr th {
   justify-content: space-around;
   flex-wrap: wrap;
   gap: 2rem;
-  padding: 1rem;
+  padding: 3rem;
 }
 
 .fila2 h2 {
