@@ -17,9 +17,7 @@ const inputDisponeFormaPago = document.getElementsByName("formaPago");
 const parrafoPresupuesto = document.getElementById("parrafoPresupuesto");
 const muestraPresupuesto = document.getElementById("muestraPresupuesto");
 const bodyTabla = document.getElementById("bodyTabla");
-const inputBuscarPresupuesto = document.getElementById(
-  "inputBuscarPresupuesto"
-);
+const inputBuscarPresupuesto = document.getElementById("inputBuscarPresupuesto");
 
 class cliente {
   constructor(dni, apellidoNombre) {
@@ -61,9 +59,7 @@ formularioPresupuesto.addEventListener("submit", (event) => {
     nuevoH2.className = "h2Presupuesto";
     muestraPresupuesto.append(nuevoH2); //agrego el h2 nuevo dentro del div muestra presupuesto
     //agregamos datos del titular del presupuesto
-    escribirDentroDePresupuesto(
-      "TITULAR DEL PRESUPUESTO: " + inputNombre.value
-    );
+    escribirDentroDePresupuesto("TITULAR DEL PRESUPUESTO: " + inputNombre.value);
     escribirDentroDePresupuesto("DNI: " + inputDni.value);
     //let pres = redactarPresupuesto();
     generarYalmacenarPresupuesto();
@@ -80,9 +76,7 @@ inputBuscarPresupuesto.addEventListener("input", () => {
   // Filtro los productos
   const presupuestosFiltrados = presupuestos.filter((presupuesto) => {
     //este metodo filter devuelve un nuevo arreglo con los productos filtrados
-    return presupuesto.cliente.dni
-      .toLowerCase()
-      .includes(presupuestoAbuscar.toLowerCase());
+    return presupuesto.cliente.dni.toLowerCase().includes(presupuestoAbuscar.toLowerCase());
   });
 
   renderizarPresupuestos(presupuestosFiltrados);
@@ -97,11 +91,7 @@ function generarYalmacenarPresupuesto() {
 
   //Creamos un objeto presupuesto y guardamos en el arreglo
 
-  let presupuestoNuevo = new presupuesto(
-    nroPresupuesto,
-    textoPresupuesto,
-    clientePresupueto
-  );
+  let presupuestoNuevo = new presupuesto(nroPresupuesto, textoPresupuesto, clientePresupueto);
 
   presupuestos.push(presupuestoNuevo);
   actualizarLSpresupuestos(presupuestos);
@@ -109,13 +99,19 @@ function generarYalmacenarPresupuesto() {
 }
 
 function cargarCliente() {
-  let clienteNuevo = new cliente(
-    inputDni.value.toUpperCase(),
-    inputNombre.value.toUpperCase()
-  );
+  let clienteNuevo = new cliente(inputDni.value.toUpperCase(), inputNombre.value.toUpperCase());
   clientes.push(clienteNuevo);
   actualizarLSclientes(clientes);
   alert("Ha sido agregado como cliente");
+
+  //usando libreria de sweet alert
+
+  Swal.fire({
+    title: "Felicitaciones!",
+    text: "Ha sido agregado como cliente",
+    icon: "success",
+    confirmButtonText: "Continuar",
+  });
 }
 
 function verificarExistenciaDeCliente(dni) {
@@ -124,9 +120,7 @@ function verificarExistenciaDeCliente(dni) {
     console.log("El cliente no existe en la base de datos");
     cargarCliente();
   } else {
-    alert(
-      "El cliente ya existe en la base de datos, se procede a realizar presupuesto para dicho cliente"
-    );
+    alert("El cliente ya existe en la base de datos, se procede a realizar presupuesto para dicho cliente");
   }
 }
 
@@ -239,9 +233,7 @@ function redactarPresupuesto() {
   // Muestra lo presupestado
   escribirDentroDePresupuesto("N° DE PRESUPUESTO: " + nroPresupuesto);
 
-  textoPresupuesto = escribirDentroDePresupuesto(
-    "- Costo por tipo de pagina elegida: $ " + valorPorTipoDePag
-  );
+  textoPresupuesto = escribirDentroDePresupuesto("- Costo por tipo de pagina elegida: $ " + valorPorTipoDePag);
 
   if (disponeLogo == "2") {
     escribirDentroDePresupuesto("- Diseño de logo: $ " + costoLogo);
@@ -252,26 +244,17 @@ function redactarPresupuesto() {
   }
 
   if (disponeHosting == "2") {
-    escribirDentroDePresupuesto(
-      "- Contratación del hosting: $ " + costoHosting
-    );
+    escribirDentroDePresupuesto("- Contratación del hosting: $ " + costoHosting);
   }
 
   if (disponeDominio == "2") {
-    escribirDentroDePresupuesto(
-      "- Compra de dominio (este valor se debe abonar anualmente): $ " +
-        costoDominio
-    );
+    escribirDentroDePresupuesto("- Compra de dominio (este valor se debe abonar anualmente): $ " + costoDominio);
   }
 
   if (formaDePago == "1") {
-    escribirDentroDePresupuesto(
-      "- Descuento por pago al contado(10%) - $ " + importePorFormaDePago
-    );
+    escribirDentroDePresupuesto("- Descuento por pago al contado(10%) - $ " + importePorFormaDePago);
   } else {
-    escribirDentroDePresupuesto(
-      "- Recargo por pago con tarjeta (15%)  $ " + importePorFormaDePago
-    );
+    escribirDentroDePresupuesto("- Recargo por pago con tarjeta (15%)  $ " + importePorFormaDePago);
   }
 
   escribirTotalDelPresupuesto("TOTAL PRESUPUESTO $ " + total);
@@ -330,18 +313,13 @@ function renderizarPresupuestos(presupuestos) {
     //Agregamos evento al boton creado
     botonMostrarPresupuesto.addEventListener("click", () => {
       //Obtengo indice de donde esta este presupuesto
-      const inidiceElementoAmostrar = presupuestos.findIndex(
-        (presupuestoAmostrar) => {
-          return (
-            presupuestoAmostrar.nroPresupuesto === presupuesto.nroPresupuesto
-          );
-        }
-      );
+      const inidiceElementoAmostrar = presupuestos.findIndex((presupuestoAmostrar) => {
+        return presupuestoAmostrar.nroPresupuesto === presupuesto.nroPresupuesto;
+      });
 
       //mostramos el resultado
 
-      muestraPresupuesto.innerHTML =
-        presupuestos[inidiceElementoAmostrar].presupuesto;
+      muestraPresupuesto.innerHTML = presupuestos[inidiceElementoAmostrar].presupuesto;
     });
 
     //Agregamos el boton a la fila
@@ -357,13 +335,9 @@ function renderizarPresupuestos(presupuestos) {
     //Agregamos evento al boton creado
     botonEliminar.addEventListener("click", () => {
       //Obtengo indice de donde esta este presupuesto
-      const inidiceElementoAeliminar = presupuestos.findIndex(
-        (presupuestoAeliminar) => {
-          return (
-            presupuestoAeliminar.nroPresupuesto === presupuesto.nroPresupuesto
-          );
-        }
-      );
+      const inidiceElementoAeliminar = presupuestos.findIndex((presupuestoAeliminar) => {
+        return presupuestoAeliminar.nroPresupuesto === presupuesto.nroPresupuesto;
+      });
 
       //borramos el presuesto del arreglo
       presupuestos.splice(inidiceElementoAeliminar, 1);
@@ -407,11 +381,9 @@ function renderizarClientes(clientes) {
     //Agregamos evento al boton creado
     botonEliminar.addEventListener("click", () => {
       //Obtengo indice de donde esta este presupuesto
-      const inidiceElementoAeliminar = clientes.findIndex(
-        (clienteAeliminar) => {
-          return clienteAeliminar.dni === cliente.dni;
-        }
-      );
+      const inidiceElementoAeliminar = clientes.findIndex((clienteAeliminar) => {
+        return clienteAeliminar.dni === cliente.dni;
+      });
 
       //borramos el cliente del arreglo
       clientes.splice(inidiceElementoAeliminar, 1);
@@ -449,11 +421,7 @@ function obtenerPresupuestosDeLS() {
     // Recorro cada objeto literal e instancio un nuevo objeto de la clase Producto
     for (const presupuestoJSON of presupuestosJSON) {
       presupuestos.push(
-        new presupuesto(
-          presupuestoJSON.nroPresupuesto,
-          presupuestoJSON.presupuesto,
-          presupuestoJSON.cliente
-        )
+        new presupuesto(presupuestoJSON.nroPresupuesto, presupuestoJSON.presupuesto, presupuestoJSON.cliente)
       );
     }
   }
